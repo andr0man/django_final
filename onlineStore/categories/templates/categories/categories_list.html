@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Categories List
+{% endblock %}
+
+{% block content %}
+<div class="container py-3">
+    {% if user.is_superuser %}
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-primary" href="{% url 'categories:new-category' %}">Create category</a>
+        </div>
+    {% endif %}
+    <h1 class="text-center mb-4">Categories List</h1>
+
+    <div class="row g-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for category in categories %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ category.name }}</td>
+                        <td><a href="{% url 'categories:page' id=category.id %}">Open</a></td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+        </table>
+        <p class="text-center">Go to <a href="/">Home</a> page</p>
+    </div>
+</div>
+{% endblock %}

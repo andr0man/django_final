@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    New Category
+{% endblock %}
+
+{% block content %}
+<div class="container py-3">
+    <h1 class="text-center mb-4">New Category</h1>
+    <div class="card shadow-lg p-4" style="max-width: 600px; margin: 0 auto;">
+        <form 
+            method="post"
+            action="{% url 'categories:new-category' %}"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <p for="id_name" class="form-label">Name</p>
+                {{ form.name }}
+                {% if form.name.errors %}
+                <div class="text-danger small">{{ form.name.errors }}</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Create Category</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

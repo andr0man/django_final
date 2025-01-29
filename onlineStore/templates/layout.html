@@ -31,7 +31,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <div class="d-flex">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="#">OnlineStore</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -51,11 +51,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="/products">Products</a>
               </li>
-              {% if user.is_superuser %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/categories">Categories</a>
-                </li>
-              {% endif %}
+              <li class="nav-item">
+                  <a class="nav-link" href="/categories">Categories</a>
+              </li>
             </ul>
           </div>
         </div>
