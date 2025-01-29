@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product
 from django.contrib.auth.decorators import login_required
 from . import forms
@@ -24,3 +24,28 @@ def product_new(request):
     else:
         form = forms.CreateProduct()
     return render(request, 'products/product_new.html', { 'form': form })
+
+@login_required(login_url="/users/login")
+def product_delete(request, id):
+    if request.user.is_superuser:
+        product = get_object_or_404(Product, id=id)
+        product.delete()
+    return redirect("products:list")
+
+@login_required(login_url="/users/login")
+def product_edit(request, id):
+    product = get_object_or_404(Product, id=id)
+
+    if request.user.is_superuser:
+        if request.method == "POST":
+            product.name = request.POST.get("name")
+            product.description = request.POST.get("description")
+            product.price = request.POST.get("price")
+
+            if "image" in request.FILES:
+                product.image = request.FILES["image"]
+
+            product.save()
+            return redirect("products:list")
+
+    return redirect("products:list")
