@@ -1,5 +1,4 @@
-from django.shortcuts import render, redirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Category
 from django.contrib.auth.decorators import login_required
 from . import forms
@@ -25,3 +24,22 @@ def category_new(request):
     else:
         form = forms.CreateCategory()
     return render(request, 'categories/category_new.html', { 'form': form })
+
+@login_required(login_url="/users/login")
+def category_delete(request, id):
+    if request.user.is_superuser:
+        category = get_object_or_404(Category, id=id)
+        category.delete()
+    return redirect("categories:list")
+
+@login_required(login_url="/users/login")
+def category_edit(request, id):
+    category = get_object_or_404(Category, id=id)
+
+    if request.user.is_superuser:
+        if request.method == "POST":
+            category.name = request.POST.get("name")
+            category.save()
+            return redirect("categories:list")
+
+    return redirect("categories:list")
