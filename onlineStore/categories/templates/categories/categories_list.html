@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="container py-3">
-    {% if user.is_superuser %}
+    {% if user.is_authenticated %}
         <div class="d-flex justify-content-end">
             <a class="btn btn-primary" href="{% url 'categories:new-category' %}">Create category</a>
         </div>

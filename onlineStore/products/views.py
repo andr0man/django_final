@@ -27,7 +27,7 @@ def product_new(request):
 
 @login_required(login_url="/users/login")
 def product_delete(request, id):
-    if request.user.is_superuser:
+    if request.user.is_authenticated:
         product = get_object_or_404(Product, id=id)
         product.delete()
     return redirect("products:list")
@@ -36,7 +36,7 @@ def product_delete(request, id):
 def product_edit(request, id):
     product = get_object_or_404(Product, id=id)
 
-    if request.user.is_superuser:
+    if request.user.is_authenticated:
         if request.method == "POST":
             product.name = request.POST.get("name")
             product.description = request.POST.get("description")

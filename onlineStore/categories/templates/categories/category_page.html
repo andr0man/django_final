@@ -13,13 +13,16 @@
                     <h1 class="card-title">{{ category.name }}</h1>
                     
                     <div class="mt-4">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal{{ category.id }}">
-                            Edit
-                        </button>
+                        {% if user.is_authenticated %}
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal{{ category.id }}">
+                                Edit
+                            </button>
+                            
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ category.id }}">
+                                Delete
+                            </button>
+                        {% endif %}
                         
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ category.id }}">
-                            Delete
-                        </button>
                         <a href="{% url 'categories:list' %}" class="btn btn-secondary">Back to Categorys</a>
                     </div>
                 </div>

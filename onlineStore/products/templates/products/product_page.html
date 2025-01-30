@@ -19,6 +19,7 @@
                     <h1 class="card-title">{{ product.name }}</h1>
                     <h3 class="card-text text-muted">Category: {{ product.category.name }}</h3>
                     <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text">Added by user: {{ product.user }}</p>
                     <h4 class="card-text text-success">Price: ${{ product.price }}</h4>
                     <div class="mt-4">
                         <a href="{% url 'products:list' %}" class="btn btn-secondary">Back to Products</a>

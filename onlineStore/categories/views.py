@@ -27,7 +27,7 @@ def category_new(request):
 
 @login_required(login_url="/users/login")
 def category_delete(request, id):
-    if request.user.is_superuser:
+    if request.user.is_authenticated:
         category = get_object_or_404(Category, id=id)
         category.delete()
     return redirect("categories:list")
@@ -36,7 +36,7 @@ def category_delete(request, id):
 def category_edit(request, id):
     category = get_object_or_404(Category, id=id)
 
-    if request.user.is_superuser:
+    if request.user.is_authenticated:
         if request.method == "POST":
             category.name = request.POST.get("name")
             category.save()
